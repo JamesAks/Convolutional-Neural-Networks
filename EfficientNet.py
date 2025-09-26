@@ -1,24 +1,19 @@
-import numpy as np
-import cv2
-import os
-from Layer import Layer
+
 from ConvolutionalLayer import ConvolutionLayer
 from InvResBlock import InvResBlock
 from Pooling import AveragePooling
 from BatchNormalisation import BatchNorm
 from FullyConnected import FCLayer
 from Softmax import Softmax
-from Learning import train
-from DataLoader import DataLoader
-from Losses import logLoss, logLossPrime
 from Activations import Swish
 from Pooling import AveragePooling
 from InvResBlock import InvResBlock
 from BatchNormalisation import BatchNorm
 from Flatten import Flatten
+from Model import Model
 
 
-class EfficientNetB0():
+class EfficientNetB0(Model):
 
     def __init__(self, mode: str = "Normal"):
 

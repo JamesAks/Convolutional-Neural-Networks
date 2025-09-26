@@ -185,17 +185,17 @@ INPUT_HEIGHT = 480
 
 # print(operations(input))
 
-arr = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
+# arr = np.array([[1,2,3,4],[5,6,7,8],[9,10,11,12]])
 
-arr3d = np.array([[[1,2,3],[4,21,6]],[[7,8,9],[10,11,12]]])
+# arr3d = np.array([[[1,2,3],[4,21,6]],[[7,8,9],[10,11,12]]])
 
-arr2 = np.array([[1,2,7],[3,4,8]])
+# arr2 = np.array([[1,2,7],[3,4,8]])
 
-arr3 = np.array([[2,2],[1,1]])
+# arr3 = np.array([[2,2],[1,1]])
 
-arr0 = np.array(None)
+# arr0 = np.array(None)
 
-padarr = np.pad(arr, ((2,2),(1,1)))
+# padarr = np.pad(arr, ((2,2),(1,1)))
 #print(padarr)
 
 # def dilate(array, stride):
@@ -207,46 +207,46 @@ padarr = np.pad(arr, ((2,2),(1,1)))
 #     return dilated
 
 
-# result = np.multiply(arr2, arr2)
+# # result = np.multiply(arr2, arr2)
 
-for i in range(1,1):
+# for i in range(1,1):
 
-    print(i)
+#     print(i)
 
-mult1 = np.array([[3,4],[4,6]])
-mult2 = np.array(([[1,2],[3,4]],[[5,6],[7,8]],[[9,10],[11,12]]))
-size = (244,244)
+# mult1 = np.array([[3,4],[4,6]])
+# mult2 = np.array(([[1,2],[3,4]],[[5,6],[7,8]],[[9,10],[11,12]]))
+# size = (244,244)
 
-try1 = np.zeros((3,0,0))
-con1 = np.array([[1,2],[3,4]])
-con2 = np.array([[5,6],[7,8]])
-con3 = np.array([[9,10],[11,12]])
-list = np.array([con1,con2,con3])
-con_list = [con1,con2]
-tr1 = np.concatenate(con_list)
+# try1 = np.zeros((3,0,0))
+# con1 = np.array([[1,2],[3,4]])
+# con2 = np.array([[5,6],[7,8]])
+# con3 = np.array([[9,10],[11,12]])
+# list = np.array([con1,con2,con3])
+# con_list = [con1,con2]
+# tr1 = np.concatenate(con_list)
 
-zero_array = np.array([])
+# zero_array = np.array([])
 
-#padded_con1 = np.pad(con1,((0,0),(1,1),(1,1)))
+# #padded_con1 = np.pad(con1,((0,0),(1,1),(1,1)))
 
-#con1_width, con1_height = padded_con1.shape
+# #con1_width, con1_height = padded_con1.shape
 
-rev= [1,2,3,4,5,6]
-rev.reverse()
+# rev= [1,2,3,4,5,6]
+# rev.reverse()
 
-padMult2 = np.pad(mult2,((0,0),(1,1),(1,1)))
-np.pad(mult1, ((0,1),(0,1)))
+# padMult2 = np.pad(mult2,((0,0),(1,1),(1,1)))
+# np.pad(mult1, ((0,1),(0,1)))
 
-#concat = np.concatenate(list)
+# #concat = np.concatenate(list)
 
-s = np
-smult1 = s.split(mult2,[1])
+# s = np
+# smult1 = s.split(mult2,[1])
 
-tuple = (3,5)
+# tuple = (3,5)
 
-low, high = tuple
+# low, high = tuple
 
-# mult2 = mult2.reshape(2,2,3)
+# # mult2 = mult2.reshape(2,2,3)
 
 
 # def forward(input: np.ndarray):
@@ -279,65 +279,12 @@ low, high = tuple
 #print(label.shape)
 # print(arr.shape)
 
+hey = [1,2,3,4]
+yo = [5,6,7]
 
-            
+hey = np.array(hey)
 
-
-def crossCorrelation3D(input: np.ndarray, kernel: np.ndarray, stride: int, mode:str = "valid"):
-
-    inpt = input
-    inp_depth, inp_width, inp_height = input.shape
-    kernel_depth, kernel_width, kernel_height  = kernel.shape
-    #print(f"Shape: {input.shape}")
-
-    w_pad = 0
-    h_pad = 0
-
-    if mode == "full":
-
-        #print(f"full kernels {kernel.shape}")
-        #print(f"full input{input.shape}")
-
-        w_pad = kernel_width - 1
-        h_pad = kernel_height - 1
-
-        padded_input = []
-
-        for i in range(inp_depth):
-
-            padded_input.append(np.pad(inpt[i], (w_pad,h_pad)))
-
-        inpt = np.array(padded_input)
-        stride = 1
-
-    
-    #print("huh")
-    out_height = ((inp_height - kernel_height + (2 * h_pad)) // stride) + 1
-    out_width = ((inp_width - kernel_width + (2 * w_pad)) // stride) + 1
-
-
-    output = np.zeros((out_width,out_height))
-
-    #print(f"Conv input shape {input.shape}")
-    #print(f"Conv output Shape {output.shape}")
-    #print(f"Conv kernel Shape {kernel.shape}")
-    
-    for i in range(out_height):
-
-        for j in range(out_width):
-
-            for k in range(kernel_depth):                
-
-                    #print(f"conv:  {i}, {j}, {d}")
-                
-                    output[i,j] += np.sum(inpt[:, i*stride : i*stride + kernel_width, j*stride : j*stride + kernel_height] * kernel[k])
-
-
-    #print(f"full output {output.shape}")
-
-    
-    return output
-        
+print(type(hey),type(yo))
 
 
 

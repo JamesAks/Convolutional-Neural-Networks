@@ -6,10 +6,7 @@ import math
 class BatchNorm(Layer):
 
     def __init__(self, gpu: bool = False):
-
-        self.setModule(gpu)
-
-        super().__init__()
+        super().__init__(gpu)
 
     def forward(self, input: np.ndarray | cp.ndarray):
 

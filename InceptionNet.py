@@ -5,9 +5,6 @@ from Pooling import MaxPooling, AveragePooling
 from Softmax import Softmax
 from FullyConnected import FCLayer
 from Activations import RELU6
-from DataLoader import DataLoader
-from Learning import train
-from Losses import logLoss, logLossPrime
 from Flatten import Flatten
 
 class InceptionNet(Model):

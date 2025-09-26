@@ -4,8 +4,8 @@ from Layer import Layer
 
 class Softmax(Layer):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, gpu: bool = False):
+        super().__init__(gpu)
 
     def forward(self, input: np.ndarray) -> np.ndarray:
 
@@ -15,7 +15,7 @@ class Softmax(Layer):
 
         self.input = input
 
-        exp_input = np.exp(input)
+        exp_input = self.module.exp(input)
 
         self.output = exp_input/ exp_input.sum(axis = 1, keepdims= True)
 

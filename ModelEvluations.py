@@ -14,10 +14,9 @@ TEST_EXP_PATH = ""
 CV_PATH = ""
 
 
-vgg_16 = VGG16(mode = "Normal")
+vgg_16 = VGG16(mode = "im2col",gpu = True)
 
-data = DataLoader(TRAIN_PATH, TRAIN_EXP_PATH, 32, targetSize= (32,32), numb_samples= 1000)
+data = DataLoader(TRAIN_PATH, TRAIN_EXP_PATH, 1, targetSize= (244,244), numb_samples = 1000)
 eval_log = EvalLogger()
- 
 
-vgg_16.train(logLoss, logLossPrime, data, eval_log)
+vgg_16.train(logLoss, logLossPrime, data, eval_log,)

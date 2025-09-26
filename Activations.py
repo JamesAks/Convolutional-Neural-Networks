@@ -15,7 +15,7 @@ class Tanh(Activation):
         def inverse_tanh(x):
 
             return
-            
+
             # Super method to intialise the Activation with the functions
         super().__init__(tanh,inverse_tanh)
 
@@ -23,8 +23,6 @@ class Tanh(Activation):
 
             return
 
-
-    # TO-DO: Need to implement the new activations for Inception and Effecicient. Sigmoidal?
     
 class Act(Activation):
 
@@ -45,11 +43,11 @@ class Act(Activation):
 
 class RELU6(Activation):
 
-    def __init__(self):
+    def __init__(self, gpu: bool = False):
 
+        self.setModule(gpu)
+        
         def activation(input: np.ndarray | cp.ndarray):
-
-            self.setModule(type(input))
 
             # RELU6 returns 0 is the input is less than 0 and clamps the max value to 6
             input[input < 0] = 0
@@ -79,11 +77,10 @@ class RELU6(Activation):
 
 class Swish(Activation):
 
-    def __init__(self):
+    def __init__(self, gpu: bool = False):
         
         def activation(input: np.ndarray | cp.ndarray):
 
-            self.setModule(type(input))
             
             input *= 1/1+np.exp(-input)
 
@@ -101,15 +98,14 @@ class Swish(Activation):
 
         super().__init__(activation, activation_prime)
 
+
 class Sigmoid(Activation):
 
-    def __init__(self):
+    def __init__(self, gpu: bool = False):
 
         def activation(input: np.ndarray | cp.ndarray):
 
             self.input = input
-
-            self.setModule(type(self.input))
 
             print(f"Sig In: {self.input.shape}")
 
@@ -121,7 +117,6 @@ class Sigmoid(Activation):
 
             return output_gradient * self.input * (1 - self.input)
         
-
         super().__init__(activation, activation_prime)
 
         

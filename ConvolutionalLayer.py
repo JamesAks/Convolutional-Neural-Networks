@@ -43,7 +43,7 @@ class ConvolutionLayer(Layer):
 
         self.input_shape = self.input.shape
 
-        print(f"Convolution Input {self.input.shape}")
+        print(f"Convolution Input {self.input.shape} and Type {type(input)}")
             
         #(input[0])
 
@@ -88,6 +88,7 @@ class ConvolutionLayer(Layer):
             output += self.biases
 
             # Setting Biases only on first pass
+            print(f"Output Type: {type(output)}")
 
             return output #bias
         

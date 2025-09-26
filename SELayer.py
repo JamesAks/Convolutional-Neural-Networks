@@ -8,7 +8,7 @@ from Flatten import Flatten
 
 class SqueezeExciteLayer(Layer):
 
-    def __init__(self, reduction_ratio: int = 4):
+    def __init__(self, reduction_ratio: int = 4, gpu: bool = False):
 
         # Certain channels may be more important (contribute more than the rest) than others.
         # We can use gloabl average pooling to find the coefficient for the channels .
@@ -18,6 +18,8 @@ class SqueezeExciteLayer(Layer):
         self.reduction_ratio = reduction_ratio
 
         self.layers = ()
+
+        super().__init__(gpu)
 
     def forward(self,input: np.ndarray):
 
@@ -56,7 +58,7 @@ class SqueezeExciteLayer(Layer):
     
     def backward(self, error_grad: np.ndarray, learning_rate: float) -> np.ndarray:
 
-        output_grad = np.zeros_like(error_grad)
+        output_grad = self.module.zeros_like(error_grad)
         for n in range(self.batch_size):
             for c in range(self.inp_depth):
 

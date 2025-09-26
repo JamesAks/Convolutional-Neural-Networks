@@ -5,10 +5,21 @@ from Display import EvalLogger
 
 class Model():
 
-    def __init__(self, model_name):
+    def __init__(self, model_name, gpu: bool = False):
+
+        self.gpu = gpu
+
+        if self.gpu:
+
+            self.module = cp
+
+        else:
+
+            self.module = np
 
         self.model_name = model_name
         self.network = []
+
 
     def predict(self, inputs: np.ndarray):
 
@@ -19,12 +30,13 @@ class Model():
             output = layer.forward(output)
         
         return output
-    
 
 
-    def train(self, loss, lossPrime, data_loader: DataLoader, eval_logger: EvalLogger, learning_rate : float = 0.01, epochs: int = 100, fold: int = 1):
+    def train(self, loss, lossPrime, data_loader: DataLoader, eval_logger: EvalLogger, learning_rate : float = 0.01, epochs: int = 100, fold: int = 1, log: bool = True):
 
-        eval_logger.createSheet(self.model_name)
+        if log:
+            eval_logger.createSheet(self.model_name)
+            data_loader.setModule(self.gpu)
         
         for e in range(epochs):
 
@@ -43,6 +55,9 @@ class Model():
 
                 error_gradient = lossPrime(outputs, y)
 
+                print(outputs.shape)
+                print(y.shape)
+
                 acc = float(self.findAccuracy(outputs, y))
 
                 for layer in reversed(self.network):
@@ -56,8 +71,9 @@ class Model():
 
                 batch += 1
 
-                eval_logger.log(self.model_name,fold,(e + 1), (batch), loss_sum, acc)
-                eval_logger.save()
+                if log:
+                    eval_logger.log(self.model_name,fold,(e + 1), (batch), loss_sum, acc)
+                    eval_logger.save()
             
             print(f"Epoch: {e + 1} --- Loss: {loss_sum}")
 
@@ -78,17 +94,11 @@ class Model():
 
     def findAccuracy(self, outputs, y) -> float:
 
-        if type(outputs) == np.ndarray:
-            module = np
-
-        else:
-            module = cp
-
-        predicts = module.argmax(outputs, axis = 1)
-        correct = (module.argmax(y, axis = 1))
+        predicts = self.module.argmax(outputs, axis = 1)
+        correct = self.module.argmax(y, axis = 1)
 
 
-        return module.mean(predicts == correct)
+        return self.module.mean(predicts == correct)
     
 
 

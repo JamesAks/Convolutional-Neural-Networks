@@ -6,7 +6,7 @@ from PIL import Image
 class DataLoader:
 
 
-    def __init__(self, imagePath: str, expPath: str, batchSize: int, shuffle: bool = False, normalisation: bool = True, targetSize: tuple = (244,244), numb_samples = 0, gpu: bool = False):
+    def __init__(self, imagePath: str, expPath: str, batchSize: int, shuffle: bool = False, normalisation: bool = True, targetSize: tuple = (244,244), numb_samples = 0):
 
         self.imagePaths = self.getPaths(imagePath)
         self.expPaths = self.getPaths(expPath)
@@ -15,7 +15,8 @@ class DataLoader:
         self.normalisation = normalisation
         self.targetSize = targetSize
         self.currentIdx = 0
-        self.gpu = gpu
+        self.gpu = False
+        self.module = np
 
         if numb_samples == 0:
 
@@ -60,7 +61,7 @@ class DataLoader:
 
             img = Image.open(f"{self.imagePaths[idx]}")
             img = img.resize(self.targetSize)
-            img_array = np.reshape((np.asarray(img)),(3,*self.targetSize))
+            img_array = self.module.reshape((self.module.asarray(img)),(3,*self.targetSize))
 
             if self.normalisation == True:
 
@@ -68,17 +69,13 @@ class DataLoader:
 
             images.append(img_array)
             label = np.load(self.expPaths[idx], allow_pickle= True)
+            
             labels.append(label)
             
         #One hot encode
-        images = np.array(images)
-
+        images = self.module.array(images)
         labels = self.one_hot_encode(labels)
 
-        if self.gpu == True: 
-
-            images = cp.array(images)
-            labels = cp.array(labels)
 
         self.currentIdx = end
 
@@ -92,11 +89,10 @@ class DataLoader:
 
         for label in labels:
 
-
-            encoded = np.identity(numclasses)[int(label)]
+            encoded = self.module.identity(numclasses)[int(label)]
             encoded_list.append(encoded)
 
-        encoded_list = np.array(encoded_list)
+        encoded_list = self.module.array(encoded_list)
         #encoded = oneHotLabs[np.array(labels)]
 
         return encoded_list
@@ -113,6 +109,18 @@ class DataLoader:
                 paths.append(p)
                 
         return paths
+    
+    def setModule(self, gpu: bool):
+        
+        if gpu: 
+
+            self.gpu = True
+            self.module = cp
+
+        else:
+
+            self.gpu = False
+            self.module = np
 
 
     
