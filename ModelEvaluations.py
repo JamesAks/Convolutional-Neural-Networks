@@ -7,8 +7,8 @@ from Losses import logLoss, logLossPrime
 
 # Constants hold the paths towards datasets
 
-TRAIN_PATH = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_Train/Train_images"
-TRAIN_EXP_PATH = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_Train/Train_expected"
+TRAIN_PATH = ""
+TRAIN_EXP_PATH = ""
 
 TEST_PATH = ""
 TEST_EXP_PATH = ""
