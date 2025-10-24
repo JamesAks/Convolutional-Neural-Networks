@@ -5,8 +5,12 @@ from PIL import Image
 
 class DataLoader:
 
+    # The dataloader class is to handle thedata manipualtion and feeding of data to the networks
+    # It would be hard to hold all the data in memory and it makes batching easier
 
     def __init__(self, imagePath: str, expPath: str, batchSize: int, shuffle: bool = False, normalisation: bool = True, targetSize: tuple = (244,244), numb_samples = 0):
+
+        
 
         self.imagePaths = self.getPaths(imagePath)
         self.expPaths = self.getPaths(expPath)
@@ -85,6 +89,9 @@ class DataLoader:
 
     def one_hot_encode(self, labels: list,numclasses: int = 8) -> np.ndarray | cp.ndarray:
 
+        # The expected outputs are save as a single int in order to use them they must be one-hot encoded
+        # For example, 3 = [ 0, 0, 0, 1, 0, 0, 0, 0,]
+
         encoded_list = []
 
         for label in labels:
@@ -99,8 +106,9 @@ class DataLoader:
     
     def getPaths(self, path: str) -> list:
 
-        paths = []
+        # Get the paths of all the images in the folder
 
+        paths = []
         for root, dirs, files in os.walk(path):
 
             for p in files:
@@ -110,7 +118,11 @@ class DataLoader:
                 
         return paths
     
+    
     def setModule(self, gpu: bool):
+
+        # Depending on whether the GPU is being used the module used has to change.
+        # NumPy for normal and CuPy for GPU
         
         if gpu: 
 

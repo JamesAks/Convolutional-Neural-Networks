@@ -10,11 +10,11 @@ class Activation(Layer):
 
         # Activation function for propragation.
         self.activation = activation
+
         # Backwards propagation activation is the inverse of the forward which means they have to be individually defined.
         self.activation_prime = activation_prime
 
         super().__init__()
-
 
     def forward(self, input: np.ndarray | cp.ndarray):
 

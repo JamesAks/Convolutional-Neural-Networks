@@ -9,6 +9,8 @@ from Flatten import Flatten
 
 class InceptionNet(Model):
 
+    # The original InceptionNet / GooglenET Architecture set out in the original paper
+
     def __init__(self, mode: str = "Normal"):
         
         self.network = [
@@ -88,22 +90,6 @@ class InceptionNet(Model):
         ]
 
 
-# incept = InceptionNet()
-
-# img_paths = []
-# exp_paths = []
-
-# image_path = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_Train/Train_images"
-# train_exp_path = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_Train/Train_expected"
-# test_image_paths = ""
-# test_expected_paths =""
-
-# train_data = DataLoader(image_path, train_exp_path,3, targetSize = (64,64))
-
-# #x_test, y_test = DataLoader([*test_image_paths],[*test_expected_paths],50)
-
-
-# #train("Inception", incept.network, logLoss, logLossPrime, train_data)
 
 
 

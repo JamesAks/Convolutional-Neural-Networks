@@ -3,6 +3,8 @@ import time
 
 class EvalLogger:
 
+    # Logs the evaluation of the models into a Ecxel Sheet
+
     def __init__(self, filename: str ="ModelEvaluation.xlsx", mode: str = ""):
 
         self.filename = filename
@@ -25,6 +27,8 @@ class EvalLogger:
 
     def createSheet(self, model_name):
         
+        # Creates Excel sheet using models name
+
         ws = self.wb.create_sheet(title = model_name)
 
         if self.mode == "CV":
@@ -61,6 +65,8 @@ class EvalLogger:
 
     def testLog(self, model_name, acc, index: int = 1):
 
+        # logging of the testing results of models
+
         if self.mode == "CV":
 
             ws = self.sheets[f"{model_name} - CV"]
@@ -82,6 +88,8 @@ class EvalLogger:
 
 
     def checkWorksheet(self, model_name):
+
+        # Checks for Worksheet and replaces it with a new fresh sheet
         
         if model_name in self.sheetnames:
 

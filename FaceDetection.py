@@ -16,12 +16,12 @@ TARGET_DATA_PATH = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_T
 
 # Face Detection
 
-# TO:DO - MediaPipe >:
+
 base_options = python.BaseOptions(model_asset_path='blaze_face_short_range.tflite')
 options = vision.FaceDetectorOptions(base_options=base_options)
 detector = vision.FaceDetector.create_from_options(options)
 
-# To-do: Get rid of FaceDetection module and put it here.
+
 
 def findFace(img: np.ndarray) -> tuple:
 
@@ -82,25 +82,6 @@ def getExpected(dir: str, target: str, size: int = 10000):
       
 
 
-#Pre-processing the data
-
-# imgList = createFileList(FILE_PATH)
-
-# for image in imgList:
-      
-#       img = mp.Image.create_from_file(image)
-#       boundingBox = findFace(img)
-#       img_copy = np.copy(img.numpy_view())
-#       img = crop(img_copy, boundingBox)
-
-
-#       # transform = transforms.ToTensor
-#       # img = transform(img)
-#       # img_tensor = torch.from_numpy(img).permute(2, 0, 1).float() / 255.0
-
-#       # Resize the input image to be 3 dimensionall 244 x 244 array
-#       img = np.resize(img,(3,244,244))
-#       cv2.imwrite(image,img)
 
 def preprocess(dir: str , target: str, size: int = 10000):
 
@@ -159,9 +140,6 @@ def preprocess(dir: str , target: str, size: int = 10000):
 
                         print(f"{size} Images fully saved")
                         break
-
-
-                  
 
                   i += 1
 

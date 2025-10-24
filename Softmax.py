@@ -4,6 +4,9 @@ from Layer import Layer
 
 class Softmax(Layer):
 
+    # The network needs to turn the float values its outputted into a prediction
+    # Softmax utilises exponentials to do this
+
     def __init__(self, gpu: bool = False):
         super().__init__(gpu)
 
@@ -18,12 +21,6 @@ class Softmax(Layer):
         exp_input = self.module.exp(input)
 
         self.output = exp_input/ exp_input.sum(axis = 1, keepdims= True)
-
-        #self.prediction = np.argmax(self.output)
-
-        #self.output = np.reshape(self.output, self.output.size)
-
-        #print(self.output.shape)
 
         return self.output
     

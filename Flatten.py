@@ -4,9 +4,10 @@ from Layer import Layer
 
 class Flatten(Layer):
 
+    # Flatten layer is important for the dense layer. Changes input from N x W x H x D to N x (W x H x D)
+
     def __init__(self, gpu: bool = False):
         super().__init__(gpu)
-
 
     def forward(self, input: np.ndarray | cp.ndarray) -> np.ndarray | cp.ndarray:
 

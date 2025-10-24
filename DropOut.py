@@ -3,6 +3,8 @@ from Layer import Layer
 
 class DOLayer(Layer):
 
+    #Turning off nerurons in order to reduce overfitting. Essentially evaluating smaleer subtrees of network
+
     def __init__(self, probabilty: float = 0.5, train = True):
 
         self.prob = probabilty
@@ -14,7 +16,7 @@ class DOLayer(Layer):
 
         if self.train:
 
-            #Turning off nerurons in order to reduce overfitting. Essentially evaluating smaleer subtrees of network
+            
 
             temp = np.random.rand(*input.shape)
 

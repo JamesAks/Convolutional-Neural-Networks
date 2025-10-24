@@ -4,6 +4,9 @@ from Layer import Layer
 
 class InceptionLayer(Layer):
 
+    # Inception layer consist of multiple branches with multiple convolution layers working in "parrallel".
+    # The output of each bracnch is then concatenated (depth-wise) into a single output
+
     def __init__(self, branches: list, gpu: bool = False):
 
         self.branches = branches
@@ -41,20 +44,6 @@ class InceptionLayer(Layer):
 
     def backward(self, error_grad: np.ndarray, learning_rate: float) -> np.ndarray:
 
-        # if len(self.partitions) == 0 :
-         
-        #     index = 0
-
-        #     for i in range(len(self.output_depths) - 1):
-
-
-
-                
-        #         index += self.output_depths[i]
-        #         self.partitions.append(index)
-
-        # errors = np.split(error_grad, self.partitions, axis = 0)
-
         error_list = []
 
         ind = 0
@@ -66,27 +55,7 @@ class InceptionLayer(Layer):
             ind += depth
 
 
-
-        # error_list = []
-        # for error in errors:
-
-        #     error_list.append(error)
-
-        # error_list.reverse()
-
         output = self.module.zeros(self.input.shape)
-        input_list = []
-
-        # for error in errors:
-
-        #     error_list.append(error)
-        
-        # error_list = error_list.reverse()
-
-
-        print(f"Error 1 sshape: {error_list[1].shape}")
-
-        print(self.partitions)
 
         for i in range(self.num_branches):
 

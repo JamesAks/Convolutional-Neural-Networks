@@ -15,6 +15,8 @@ from Model import Model
 
 class EfficientNetB0(Model):
 
+    #This is the original Efficient B0 model without the comput scaling factor
+
     def __init__(self, mode: str = "Normal"):
 
         self.mode = mode
@@ -61,38 +63,7 @@ class EfficientNetB0(Model):
         ]
 
 
-# b1 = [
-
-#     ConvolutionLayer(8,3,2,1),
-#     # 1 input_channels - 2 expansion_ratio - 3 output_channels - 4 kernel_size - 5 stride
-#     InvResBlock(8,1,8,3,1),
-#     InvResBlock(8,6,16,3,2),
-#     InvResBlock(16,6,24,5,2),
-#     ConvolutionLayer(32,1,1), 
-#     BatchNorm(),
-#     Swish(),
-#     AveragePooling(glob= True),
-#     Flatten(),
-#     FCLayer(8),
-#     Softmax()
-
-# ]
-
-# b_0 = EffecientNetB0("Normal")
+# TO: DO implement EfficientNet compound sclaing method
 
 
-# img_paths = []
-# exp_paths = []
 
-# image_path = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_Train/Train_images"
-# train_exp_path = "C:/Users/james/Documents/Masters/Dissertation/Preprocessed_Train/Train_expected"
-# test_image_paths = ""
-# test_expected_paths =""
-
-# train_data = DataLoader(image_path, train_exp_path, 100, targetSize= (32,32))
-# #x_test, y_test = DataLoader([*test_image_paths],[*test_expected_paths],50)
-
-
-# #train("Normal_EfficientNet",b_0.network, logLoss, logLossPrime, train_data)
-
-      

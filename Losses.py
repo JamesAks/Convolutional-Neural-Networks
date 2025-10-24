@@ -1,7 +1,11 @@
 import numpy as np
 import cupy as cp
 
+# Loss function determines how much information gain after an iteration or how far off our predictions were from the true values
+
 def logLoss(predictions: np.ndarray| cp.ndarray, true_ys: np.ndarray | cp.ndarray) -> float:
+
+
 
     if type(predictions) == np.ndarray:
 

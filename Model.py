@@ -5,6 +5,9 @@ from Display import EvalLogger
 
 class Model():
 
+    # Base model class all models inshould inherit from this class
+    # Handles all the actiions th model shoulld take.
+
     def __init__(self, model_name, gpu: bool = False):
 
         self.gpu = gpu
@@ -23,6 +26,7 @@ class Model():
 
     def predict(self, inputs: np.ndarray):
 
+        # Uses the model object to make predictions based on a set of inputs
         output = inputs
 
         for layer in self.network:
@@ -33,6 +37,8 @@ class Model():
 
 
     def train(self, loss, lossPrime, data_loader: DataLoader, eval_logger: EvalLogger, learning_rate : float = 0.01, epochs: int = 100, fold: int = 1, log: bool = True):
+
+        # Trains the model using a dataset
 
         if log:
             eval_logger.createSheet(self.model_name)
@@ -77,7 +83,10 @@ class Model():
             
             print(f"Epoch: {e + 1} --- Loss: {loss_sum}")
 
+
     def test(self, data_loader: DataLoader, eval_logger: EvalLogger, index: int = 1):
+
+        # After training, test the  model on some unseen data
 
         predictions = []
         true_ys = []
@@ -93,6 +102,8 @@ class Model():
 
 
     def findAccuracy(self, outputs, y) -> float:
+
+        # Finding the accuracy of the model at its current iteration
 
         predicts = self.module.argmax(outputs, axis = 1)
         correct = self.module.argmax(y, axis = 1)

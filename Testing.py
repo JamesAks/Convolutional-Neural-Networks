@@ -279,13 +279,11 @@ INPUT_HEIGHT = 480
 #print(label.shape)
 # print(arr.shape)
 
-hey = [1,2,3,4]
-yo = [5,6,7]
+hey = np.array([1,2,3,4])
+yo = np.array([[5,6,7,8],[1,2,3,4]])
 
-hey = np.array(hey)
-
-print(type(hey),type(yo))
-
+heyyo = np.vstack((hey,yo))
+print(heyyo)
 
 
 

@@ -2,7 +2,8 @@ import numpy as np
 import cupy as cp
 from Activation import Activation
 
-    
+# Activations are applied to the network to add non-linearity. This allows the netwrok to learn more complex patterns
+# For most of the network layers we us a RELU6 Activation that clamps the values between 0 and 6.
 
 class Tanh(Activation):
 
@@ -24,21 +25,6 @@ class Tanh(Activation):
             return
 
     
-class Act(Activation):
-
-    def __init__(self):
-
-        def act_forward(x):
-                
-            return x
-            
-        def act_backward(x):
-
-            return x
-            
-        super().__init__(act_forward,act_backward)
-
-# TO-DO implement RELU6 activation
 
 
 class RELU6(Activation):
@@ -46,6 +32,7 @@ class RELU6(Activation):
     def __init__(self, gpu: bool = False):
 
         self.setModule(gpu)
+        self.matrix = []
         
         def activation(input: np.ndarray | cp.ndarray):
 
@@ -65,10 +52,6 @@ class RELU6(Activation):
 
             output = self.module.multiply(output_gradient, self.input)
 
- 
-            #print(f"RELU6 Input shape : {self.input.shape}")
-
-            #print(np.multiply(output_gradient,x))
 
             return output
 
@@ -77,14 +60,16 @@ class RELU6(Activation):
 
 class Swish(Activation):
 
+    # Swish function is a modification of the sigmoid function
+    # Swish(x) = x * sigmoidal(bx) where b is ascalable and trainable parameter
+
     def __init__(self, gpu: bool = False):
         
         def activation(input: np.ndarray | cp.ndarray):
 
-            
-            input *= 1/1+np.exp(-input)
+            # TO:DO becasue b is a trainable parameter Swish needs to be made into a layer class rather than an activation
 
-            print("Swish")
+            input *= 1/1+np.exp(-input)
 
             return input
 
@@ -92,14 +77,14 @@ class Swish(Activation):
 
             output = ((output_gradient + self.module.sinh(output_gradient)) / (4 * (self.module.cosh(output_gradient)**2))) + 0.5
 
-            print("Swish Done")
-
             return output
 
         super().__init__(activation, activation_prime)
 
 
 class Sigmoid(Activation):
+
+    # Sigmoidal(x) = 1 / 1 + e^-x
 
     def __init__(self, gpu: bool = False):
 
@@ -115,7 +100,8 @@ class Sigmoid(Activation):
         
         def activation_prime(output_gradient: np.ndarray | cp.ndarray):
 
-            return output_gradient * self.input * (1 - self.input)
+            # return output_gradient * self.input * (1 - self.input)
+            return
         
         super().__init__(activation, activation_prime)
 

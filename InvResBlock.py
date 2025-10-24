@@ -1,6 +1,7 @@
 import numpy as np
 from Layer import Layer
-from ConvolutionalLayer import ConvolutionLayer, DWConvolution
+from ConvolutionalLayer import ConvolutionLayer
+from DeptheWiseConvolution import DWConvolution 
 # from SeperableConvolution import DWConvolution
 from Activations import RELU6
 from BatchNormalisation import BatchNorm
@@ -9,6 +10,10 @@ from SELayer import SqueezeExciteLayer
 
 
 class InvResBlock(Layer):
+
+    # Inverted Residual Block is a method used to reduce the amount of parameters while keeping all other properties of the network.
+    # Instead of doing a normal convolution with an output of D channels, first  a depthwise convolution is done where each input depth has its own filter (no mixing)
+    # After a 1x1 convolution is done to expand the output to D depth.
 
     def __init__(self, input_channels: int, expansion_ratio: int, output_channels: int, kernel_size: int = 3, stride: int = 1, mode = "Normal", gpu: bool = False):
 

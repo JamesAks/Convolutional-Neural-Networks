@@ -3,9 +3,12 @@ import cupy as cp
 from Layer import Layer
 from Conv import pad3D
 
+# Pooling is an act of reducing dimensionality by agregating outputs a certain way.
 
 
 class MaxPooling(Layer):
+
+    # Reduces dimensionality of input by find the max values within windows of a given size
 
     def __init__(self, window_shape: tuple, stride: int, padding: int = 0, gpu: bool = False):
 
@@ -49,7 +52,6 @@ class MaxPooling(Layer):
                     
                 self.output[:,:,w,h] = input[:,:,w*self.stride:w*self.stride + self.window[0], h*self.stride: h*self.stride + self.window[1]].max(axis = (2,3))
 
-        #print(f"Max Pooling: {self.output}")
                     
         return self.output
     
@@ -58,10 +60,10 @@ class MaxPooling(Layer):
 
         # Gradient only matter only on the positions where the max was found everything else is left the same so pad out with zero.
         #Initialise an array of zeroes similar to the input
-        #print(f"pool input shape {self.input.shape}")
+
         backprop = self.module.zeros(self.input.shape)
 
-        #print(f"pool error {error_grad.shape}")
+
 
         for h in range(self.output_height):
 
@@ -76,6 +78,8 @@ class MaxPooling(Layer):
     
     
 class AveragePooling(Layer):
+
+    # Reduces dimensionality by averageing the input with certain windows
 
 
     def __init__(self, window_shape: tuple = (2,2), stride: int = 1, glob: bool = False, gpu: bool = False):
@@ -149,37 +153,4 @@ class AveragePooling(Layer):
 
         return backprop
     
-
-# class GlobalAveragePooling(Layer):
-
-#     def __init__(self):
-
-#         super().__init__()
-
-
-#     def forward(self, input: np.ndarray) -> np.ndarray:
-
-#         self.input = input
-#         self.input_shape = input.shape
-#         self.batch, self.inp_depth, self.inp_width, self.inp_height = self.input_shape
-
-#         self.output = np.zeros((1,self.inp_depth,1,1))
-
-#         for i in range(self.inp_depth):
-            
-#             self.output[i] = np.mean(input)
-
-#         return self.output
-    
-    
-#     def backward(self, error_grad: np.ndarray, learning_rate: float) -> np.ndarray:
-
-#         inp_grads = self.input
-
-#         for i in range (self.inp_depth):
-
-#              inp_grads += error_grad[i]/ (self.inp_width * self.inp_height)
-
-
-#         return inp_grads
 

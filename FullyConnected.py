@@ -6,6 +6,10 @@ from Layer import Layer
 
 class FCLayer(Layer):
 
+    # Dense or fully-connected Layer connects each input neuron to an output neuron in the hidden layerby a weight.
+    # The output at each output neuron is equivalant to the sum of all the input neurons multiplied by the respective weights that connect them to that output neuron plus a bias
+    # Y = X . W + B
+
     def __init__(self, output_size: int, momentum: float = 0.09, gpu: bool = False):
 
         

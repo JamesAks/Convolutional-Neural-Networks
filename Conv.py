@@ -11,7 +11,6 @@ def crossCorrelation3D(input: np.ndarray, kernel: np.ndarray, stride: int):
     batch_size, inp_depth, inp_width, inp_height = input.shape
     kernel_depth, _, kernel_width, kernel_height  = kernel.shape
 
-
     output_height = (inp_height -  kernel_height) // stride + 1
     output_width = (inp_width - kernel_height) // stride + 1
 
